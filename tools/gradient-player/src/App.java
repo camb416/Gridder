@@ -168,7 +168,7 @@ public class App extends PApplet {
         scale(120);
         beginShape(QUADS);
         if (bUseStroke.getBooleanValue()) {
-            strokeWeight(1.0f/120.0f);
+            strokeWeight(1.0f / 120.0f);
             stroke(255);
         } else {
             noStroke();
