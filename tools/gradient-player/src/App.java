@@ -10,7 +10,7 @@ public class App extends PApplet {
     int margin = 5;
 
     float gradientPosition = 0.0f;
-    float gradientAdder = 0.001f;
+    float gradientAdder = 0.0002f;
 
     PGraphics buff;
     int colorA;
@@ -38,10 +38,10 @@ public class App extends PApplet {
         img = loadImage("tools/gradient-player/colors.png");
         imgWidth = 320;
         imgHeight = (int) (((float) img.height / (float) img.width) * 320.0f);
-        buff = createGraphics(320,imgHeight);
+        buff = createGraphics(img.width,img.height);
 
         buff.beginDraw();
-        buff.image(img,0,0,imgWidth, imgHeight);
+        buff.image(img,0,0);
         buff.endDraw();
 
         swatchSize = (imgWidth-margin*3)/4;
@@ -67,10 +67,10 @@ public class App extends PApplet {
 
 
 
-        colorA = buff.get((int)(gradientPosition*320.0f),(int)((68+0*100)/4.5f));
-        colorB = buff.get((int)(gradientPosition*320.0f),(int)((68+1*100)/4.5f));
-        colorC = buff.get((int)(gradientPosition*320.0f),(int)((68+2*100)/4.5f));
-        colorD = buff.get((int)(gradientPosition*320.0f),(int)((68+3*100)/4.5f));
+        colorA = buff.get((int)(gradientPosition*img.width),(int)((68+0*100)));
+        colorB = buff.get((int)(gradientPosition*img.width),(int)((68+1*100)));
+        colorC = buff.get((int)(gradientPosition*img.width),(int)((68+2*100)));
+        colorD = buff.get((int)(gradientPosition*img.width),(int)((68+3*100)));
 
         image(buff, margin, margin, imgWidth, imgHeight);
         stroke(255);
