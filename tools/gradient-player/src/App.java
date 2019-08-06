@@ -34,17 +34,17 @@ public class App extends PApplet {
     }
 
     public void setup() {
-        buff = createGraphics(320,imgHeight);
+        buff = createGraphics(320, imgHeight);
         img = loadImage("tools/gradient-player/colors.png");
         imgWidth = 320;
         imgHeight = (int) (((float) img.height / (float) img.width) * 320.0f);
-        buff = createGraphics(img.width,img.height);
+        buff = createGraphics(img.width, img.height);
 
         buff.beginDraw();
-        buff.image(img,0,0);
+        buff.image(img, 0, 0);
         buff.endDraw();
 
-        swatchSize = (imgWidth-margin*3)/4;
+        swatchSize = (imgWidth - margin * 3) / 4;
 
 
     }
@@ -54,79 +54,59 @@ public class App extends PApplet {
         if (gradientPosition > 1.0f) gradientPosition = 0.0f;
 
 
-
-
     }
 
     public void draw() {
         update();
 
 
-
         background(0);
 
 
-
-        colorA = buff.get((int)(gradientPosition*img.width),(int)((68+0*100)));
-        colorB = buff.get((int)(gradientPosition*img.width),(int)((68+1*100)));
-        colorC = buff.get((int)(gradientPosition*img.width),(int)((68+2*100)));
-        colorD = buff.get((int)(gradientPosition*img.width),(int)((68+3*100)));
+        colorA = buff.get((int) (gradientPosition * img.width), (int) ((68 + 0 * 100)));
+        colorB = buff.get((int) (gradientPosition * img.width), (int) ((68 + 1 * 100)));
+        colorC = buff.get((int) (gradientPosition * img.width), (int) ((68 + 2 * 100)));
+        colorD = buff.get((int) (gradientPosition * img.width), (int) ((68 + 3 * 100)));
 
         image(buff, margin, margin, imgWidth, imgHeight);
         stroke(255);
         noFill();
-        rect(margin,margin,imgWidth,imgHeight);
-
-//        noStroke();
-//        fill(red(colorA),green(colorA),blue(colorA));
-//        ellipse(1280 / 2, 720 / 2, 300, 300);
-//        fill(red(colorB),green(colorB),blue(colorB));
-//        ellipse(1280 / 2 + 50, 720 / 2 + 100, 300, 300);
-//        fill(red(colorC),green(colorC),blue(colorC));
-//        ellipse(1280 / 2 - 50, 720 / 2 + 100, 300, 300);
-
-
-
+        rect(margin, margin, imgWidth, imgHeight);
 
         stroke(255);
         noFill();
-       // line(gradientPosition * imgWidth + margin, margin, gradientPosition * imgWidth + margin, margin + imgHeight);
         fill(colorA);
-        rect((int)(gradientPosition*320.0f),(int)((68+0*100)/4.5f),5,5);
+        rect((int) (gradientPosition * 320.0f), (int) ((68 + 0 * 100) / 4.5f), 5, 5);
         fill(colorB);
-        rect((int)(gradientPosition*320.0f),(int)((68+1*100)/4.5f),5,5);
+        rect((int) (gradientPosition * 320.0f), (int) ((68 + 1 * 100) / 4.5f), 5, 5);
         fill(colorC);
-        rect((int)(gradientPosition*320.0f),(int)((68+2*100)/4.5f),5,5);
+        rect((int) (gradientPosition * 320.0f), (int) ((68 + 2 * 100) / 4.5f), 5, 5);
         fill(colorD);
-        rect((int)(gradientPosition*320.0f),(int)((68+3*100)/4.5f),5,5);
+        rect((int) (gradientPosition * 320.0f), (int) ((68 + 3 * 100) / 4.5f), 5, 5);
 
         fill(colorA);
-        rect(margin,margin*2+imgHeight,swatchSize,swatchSize);
+        rect(margin, margin * 2 + imgHeight, swatchSize, swatchSize);
         fill(colorB);
-        rect(margin*2 + swatchSize,margin*2+imgHeight,swatchSize,swatchSize);
+        rect(margin * 2 + swatchSize, margin * 2 + imgHeight, swatchSize, swatchSize);
         fill(colorC);
-        rect(margin*3 + swatchSize*2,margin*2+imgHeight,swatchSize,swatchSize);
+        rect(margin * 3 + swatchSize * 2, margin * 2 + imgHeight, swatchSize, swatchSize);
         fill(colorD);
-        rect(margin*4 + swatchSize*3,margin*2+imgHeight,swatchSize,swatchSize);
-
-
-
-      //  background(0.5);
+        rect(margin * 4 + swatchSize * 3, margin * 2 + imgHeight, swatchSize, swatchSize);
 
         pushMatrix();
-        translate(width/2, height/2, -30);
+        translate(width / 2, height / 2, -30);
 
-        newXmag = mouseX/(float)(width) * TWO_PI;
-        newYmag = mouseY/(float)(height) * TWO_PI;
+        newXmag = mouseX / (float) (width) * TWO_PI;
+        newYmag = mouseY / (float) (height) * TWO_PI;
 
-        float diff = xmag-newXmag;
-        if (abs(diff) >  0.01) {
-            xmag -= diff/4.0;
+        float diff = xmag - newXmag;
+        if (abs(diff) > 0.01) {
+            xmag -= diff / 4.0;
         }
 
-        diff = ymag-newYmag;
-        if (abs(diff) >  0.01) {
-            ymag -= diff/4.0;
+        diff = ymag - newYmag;
+        if (abs(diff) > 0.01) {
+            ymag -= diff / 4.0;
         }
 
         rotateX(-ymag);
@@ -136,35 +116,59 @@ public class App extends PApplet {
         beginShape(QUADS);
         noStroke();
 
-        fill(colorA); vertex(-1,  1,  1);
-        fill(colorB); vertex( 1,  1,  1);
-        fill(colorC); vertex( 1, -1,  1);
-        fill(colorD); vertex(-1, -1,  1);
+        fill(colorA);
+        vertex(-1, 1, 1);
+        fill(colorB);
+        vertex(1, 1, 1);
+        fill(colorC);
+        vertex(1, -1, 1);
+        fill(colorD);
+        vertex(-1, -1, 1);
 
-        fill(colorB); vertex( 1,  1,  1);
-        fill(colorD); vertex( 1,  1, -1);
-        fill(colorA); vertex( 1, -1, -1);
-        fill(colorC); vertex( 1, -1,  1);
+        fill(colorB);
+        vertex(1, 1, 1);
+        fill(colorD);
+        vertex(1, 1, -1);
+        fill(colorA);
+        vertex(1, -1, -1);
+        fill(colorC);
+        vertex(1, -1, 1);
 
-        fill(colorD); vertex( 1,  1, -1);
-        fill(colorB); vertex(-1,  1, -1);
-        fill(colorC); vertex(-1, -1, -1);
-        fill(colorA); vertex( 1, -1, -1);
+        fill(colorD);
+        vertex(1, 1, -1);
+        fill(colorB);
+        vertex(-1, 1, -1);
+        fill(colorC);
+        vertex(-1, -1, -1);
+        fill(colorA);
+        vertex(1, -1, -1);
 
-        fill(colorB); vertex(-1,  1, -1);
-        fill(colorA); vertex(-1,  1,  1);
-        fill(colorD); vertex(-1, -1,  1);
-        fill(colorC); vertex(-1, -1, -1);
+        fill(colorB);
+        vertex(-1, 1, -1);
+        fill(colorA);
+        vertex(-1, 1, 1);
+        fill(colorD);
+        vertex(-1, -1, 1);
+        fill(colorC);
+        vertex(-1, -1, -1);
 
-        fill(colorB); vertex(-1,  1, -1);
-        fill(colorD); vertex( 1,  1, -1);
-        fill(colorB); vertex( 1,  1,  1);
-        fill(colorA); vertex(-1,  1,  1);
+        fill(colorB);
+        vertex(-1, 1, -1);
+        fill(colorD);
+        vertex(1, 1, -1);
+        fill(colorB);
+        vertex(1, 1, 1);
+        fill(colorA);
+        vertex(-1, 1, 1);
 
-        fill(colorC); vertex(-1, -1, -1);
-        fill(colorA); vertex( 1, -1, -1);
-        fill(colorC); vertex( 1, -1,  1);
-        fill(colorD); vertex(-1, -1,  1);
+        fill(colorC);
+        vertex(-1, -1, -1);
+        fill(colorA);
+        vertex(1, -1, -1);
+        fill(colorC);
+        vertex(1, -1, 1);
+        fill(colorD);
+        vertex(-1, -1, 1);
 
         endShape();
 
