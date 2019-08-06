@@ -1,6 +1,6 @@
 import processing.core.PApplet;
 
-public class MainClass extends PApplet {
+public class App extends PApplet {
 
     int rings = 70;
     int ringDiameter = 10;
@@ -12,7 +12,7 @@ public class MainClass extends PApplet {
 
     public static void main(String[] args){
         println(args);
-        PApplet.main( "MainClass", args);
+        PApplet.main( "App", args);
     }
     public void settings(){
         size(1280,720);

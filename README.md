@@ -9,5 +9,9 @@
 
 ## Tools
 
-![Gradient Player](doc/gradient-player.jpg)
-Gradient Player
+
+![Gradient Player](doc/gradient-player-v2.jpg)
+Gradient Player (v2)
+
+![Gradient Player](doc/gradient-player-v1.jpg)
+Gradient Player (v1)
