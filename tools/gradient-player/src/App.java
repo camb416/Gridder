@@ -19,13 +19,16 @@ public class App extends PApplet {
 
     int swatchSize;
 
+    float xmag, ymag = 0;
+    float newXmag, newYmag = 0;
+
     public static void main(String[] args) {
         println(args);
         PApplet.main("App", args);
     }
 
     public void settings() {
-        size(1280, 720);
+        size(1280, 720, P3D);
 
     }
 
@@ -71,13 +74,14 @@ public class App extends PApplet {
         stroke(255);
         noFill();
         rect(margin,margin,imgWidth,imgHeight);
-        noStroke();
-        fill(red(colorA),green(colorA),blue(colorA));
-        ellipse(1280 / 2, 720 / 2, 300, 300);
-        fill(red(colorB),green(colorB),blue(colorB));
-        ellipse(1280 / 2 + 50, 720 / 2 + 100, 300, 300);
-        fill(red(colorC),green(colorC),blue(colorC));
-        ellipse(1280 / 2 - 50, 720 / 2 + 100, 300, 300);
+
+//        noStroke();
+//        fill(red(colorA),green(colorA),blue(colorA));
+//        ellipse(1280 / 2, 720 / 2, 300, 300);
+//        fill(red(colorB),green(colorB),blue(colorB));
+//        ellipse(1280 / 2 + 50, 720 / 2 + 100, 300, 300);
+//        fill(red(colorC),green(colorC),blue(colorC));
+//        ellipse(1280 / 2 - 50, 720 / 2 + 100, 300, 300);
 
 
 
@@ -100,6 +104,65 @@ public class App extends PApplet {
         rect(margin*3 + swatchSize*2,margin*2+imgHeight,swatchSize,swatchSize);
 
 
+
+      //  background(0.5);
+
+        pushMatrix();
+        translate(width/2, height/2, -30);
+
+        newXmag = mouseX/(float)(width) * TWO_PI;
+        newYmag = mouseY/(float)(height) * TWO_PI;
+
+        float diff = xmag-newXmag;
+        if (abs(diff) >  0.01) {
+            xmag -= diff/4.0;
+        }
+
+        diff = ymag-newYmag;
+        if (abs(diff) >  0.01) {
+            ymag -= diff/4.0;
+        }
+
+        rotateX(-ymag);
+        rotateY(-xmag);
+
+        scale(120);
+        beginShape(QUADS);
+        noStroke();
+
+        fill(colorA); vertex(-1,  1,  1);
+        fill(colorB); vertex( 1,  1,  1);
+        fill(colorC); vertex( 1, -1,  1);
+        fill(colorA); vertex(-1, -1,  1);
+
+        fill(colorB); vertex( 1,  1,  1);
+        fill(colorC); vertex( 1,  1, -1);
+        fill(colorA); vertex( 1, -1, -1);
+        fill(colorB); vertex( 1, -1,  1);
+
+        fill(colorC); vertex( 1,  1, -1);
+        fill(colorA); vertex(-1,  1, -1);
+        fill(colorB); vertex(-1, -1, -1);
+        fill(colorC); vertex( 1, -1, -1);
+
+        fill(colorA); vertex(-1,  1, -1);
+        fill(colorB); vertex(-1,  1,  1);
+        fill(colorC); vertex(-1, -1,  1);
+        fill(colorA); vertex(-1, -1, -1);
+
+        fill(colorB); vertex(-1,  1, -1);
+        fill(colorC); vertex( 1,  1, -1);
+        fill(colorA); vertex( 1,  1,  1);
+        fill(colorB); vertex(-1,  1,  1);
+
+        fill(colorC); vertex(-1, -1, -1);
+        fill(colorA); vertex( 1, -1, -1);
+        fill(colorB); vertex( 1, -1,  1);
+        fill(colorC); vertex(-1, -1,  1);
+
+        endShape();
+
+        popMatrix();
 
     }
 
