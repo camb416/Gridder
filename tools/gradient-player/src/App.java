@@ -14,20 +14,23 @@ public class App extends PApplet {
     Toggle bUseLights;
     Toggle bUseStroke;
 
+    Boolean isColorsVisible;
+
+    ColorManager cm;
+
     PImage img;
     int imgWidth;
     int imgHeight;
     int margin = 5;
 
-    float gradientPosition = 0.0f;
-    float gradientAdder = 0.0002f;
+    // float gradientPosition = 0.0f;
 
     PGraphics buff;
 
     int numColors;
-    int [] colors;
+    int[] colors;
 
-    int swatchSize;
+
 
     float xmag, ymag = 0;
     float newXmag, newYmag = 0;
@@ -44,21 +47,14 @@ public class App extends PApplet {
 
     public void setup() {
 
-        numColors = 8;
-        colors = new int[numColors];
+        isColorsVisible = true;
 
-        buff = createGraphics(320, imgHeight);
-        img = loadImage("tools/gradient-player/colors.png");
-        imgWidth = 320;
-        imgHeight = (int) (((float) img.height / (float) img.width) * 320.0f);
-        buff = createGraphics(img.width, img.height);
+        cm = new ColorManager(this, 8,"tools/gradient-player/colors.png");
 
-        buff.beginDraw();
-        buff.image(img, 0, 0);
-        buff.endDraw();
 
-        swatchSize = (int)((320-3*margin)/4.0f);
+
         int uiy = 360;
+        int swatchSize = cm.getSwatchSize();
 
         cp5 = new ControlP5(this);
         gPosSlider = cp5.addSlider("v1")
@@ -90,16 +86,27 @@ public class App extends PApplet {
     }
 
     public void keyPressed() {
-        gAutoScrollToggle.toggle();
+        switch (key) {
+            case ' ':
+                gAutoScrollToggle.toggle();
+                break;
+            case 'd':
+            case 'D':
+                cp5.setVisible(!cp5.isVisible());
+                isColorsVisible = !isColorsVisible;
+
+                break;
+        }
+
     }
 
     public void update() {
         if (gAutoScrollToggle.getBooleanValue()) {
-            gradientPosition += gSpeedSlider.getValue();
-            gPosSlider.setValue(gradientPosition);
-            if (gradientPosition > 1.0f) gradientPosition = 0.0f;
+            cm.setGradientPosition(cm.getGradientPosition() + gSpeedSlider.getValue());
+            gPosSlider.setValue(cm.getGradientPosition());
+
         } else {
-            gradientPosition = gPosSlider.getValue();
+            cm.setGradientPosition(gPosSlider.getValue());
         }
 
 
@@ -113,23 +120,13 @@ public class App extends PApplet {
 
         background(0);
 
-for(int i=0;i<numColors;i++){
-    colors[i] = buff.get((int) (gradientPosition * img.width), (int) ((68 + i * 100)));
-}
 
-        fill(255);
-        image(buff, margin, margin, imgWidth, imgHeight);
 
-        fill(255);
-        stroke(255);
+        if (isColorsVisible) {
 
-        for(int i=0;i<numColors;i++){
-            rect((int) (gradientPosition * 320.0f), (int) ((68 + i * 100) / 4.5f) + 5, 2, 2);
-        }
 
-        for(int i=0;i<numColors;i++){
-            fill(colors[i]);
-            rect(margin + (swatchSize+margin) * (i%4), margin * 2 + imgHeight + (i/4)*(swatchSize+margin), swatchSize, swatchSize);
+            cm.draw();
+
         }
 
         pushMatrix();
@@ -160,58 +157,58 @@ for(int i=0;i<numColors;i++){
             noStroke();
         }
 
-        fill(colors[0]);
+        fill(cm.getColor(0));
         vertex(-1, 1, 1);
-        fill(colors[1]);
+        fill(cm.getColor(1));
         vertex(1, 1, 1);
-        fill(colors[2]);
+        fill(cm.getColor(2));
         vertex(1, -1, 1);
-        fill(colors[3]);
+        fill(cm.getColor(3));
         vertex(-1, -1, 1);
 
-        fill(colors[1]);
+        fill(cm.getColor(1));
         vertex(1, 1, 1);
-        fill(colors[4]);
+        fill(cm.getColor(4));
         vertex(1, 1, -1);
-        fill(colors[5]);
+        fill(cm.getColor(5));
         vertex(1, -1, -1);
-        fill(colors[2]);
+        fill(cm.getColor(2));
         vertex(1, -1, 1);
 
-        fill(colors[4]);
+        fill(cm.getColor(4));
         vertex(1, 1, -1);
-        fill(colors[6]);
+        fill(cm.getColor(6));
         vertex(-1, 1, -1);
-        fill(colors[7]);
+        fill(cm.getColor(7));
         vertex(-1, -1, -1);
-        fill(colors[5]);
+        fill(cm.getColor(5));
         vertex(1, -1, -1);
 
-        fill(colors[6]);
+        fill(cm.getColor(6));
         vertex(-1, 1, -1);
-        fill(colors[0]);
+        fill(cm.getColor(0));
         vertex(-1, 1, 1);
-        fill(colors[3]);
+        fill(cm.getColor(3));
         vertex(-1, -1, 1);
-        fill(colors[7]);
+        fill(cm.getColor(7));
         vertex(-1, -1, -1);
 
-        fill(colors[6]);
+        fill(cm.getColor(6));
         vertex(-1, 1, -1);
-        fill(colors[4]);
+        fill(cm.getColor(4));
         vertex(1, 1, -1);
-        fill(colors[1]);
+        fill(cm.getColor(1));
         vertex(1, 1, 1);
-        fill(colors[0]);
+        fill(cm.getColor(0));
         vertex(-1, 1, 1);
 
-        fill(colors[7]);
+        fill(cm.getColor(7));
         vertex(-1, -1, -1);
-        fill(colors[5]);
+        fill(cm.getColor(5));
         vertex(1, -1, -1);
-        fill(colors[2]);
+        fill(cm.getColor(2));
         vertex(1, -1, 1);
-        fill(colors[3]);
+        fill(cm.getColor(3));
         vertex(-1, -1, 1);
 
         endShape();
