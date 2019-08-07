@@ -7,9 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="core" level="project" />
-    <orderEntry type="library" name="jogl-all" level="project" />
-    <orderEntry type="library" name="gluegen-rt" level="project" />
+    <orderEntry type="library" name="processing" level="project" />
     <orderEntry type="library" name="controlP5" level="project" />
   </component>
 </module>
