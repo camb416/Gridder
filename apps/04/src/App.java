@@ -10,6 +10,7 @@ public class App extends PApplet {
 
     float count;
     float dCount;
+    float prevDCount;
 
     public static void main(String[] args) {
         println(args);
@@ -49,8 +50,17 @@ public class App extends PApplet {
     }
 
     public void update() {
-       dCount = floor((float)frameCount/100);
+        dCount = floor((float)frameCount/100);
+     if(prevDCount != dCount){
+         Boolean o = cm.setGradientPosition(cm.getGradientPosition() + 0.02f);
+         if(!o){
+             cm.setGradientPosition(0.0f);
+         }
+     }
+
+
         count += (dCount - count) / 16.0f;
+        prevDCount = dCount;
     }
 
     public void draw() {

@@ -71,7 +71,7 @@ public class ColorManager {
         gAutoScrollToggle = cp5.addToggle("auto")
                 .setPosition(margin, gPosSlider.getPosition()[1] + (swatchSize - margin) / 2 + margin)
                 .setSize(160 - margin, (swatchSize - margin) / 2)
-                .setValue(true);
+                .setValue(false);
 
         gSpeedSlider = cp5.addSlider("speed")
                 .setPosition(margin * 2 + 160, gPosSlider.getPosition()[1] + (swatchSize - margin) / 2 + margin)
@@ -109,7 +109,6 @@ public class ColorManager {
         this.update();
         if (isVisible) {
 
-
             cui.beginDraw();
             cui.fill(255);
             cui.image(buff, margin, margin, imgWidth, imgHeight);
@@ -144,8 +143,15 @@ public class ColorManager {
         return gradientPosition;
     }
 
-    public void setGradientPosition(float _gp) {
-        gradientPosition = _gp;
+    public Boolean setGradientPosition(float _gp) {
+
+        if(_gp >= 0.0f && _gp <= 1.0f ){
+            gradientPosition = _gp;
+            gPosSlider.setValue(_gp);
+            return true;
+        }
+        return false;
+
     }
 
     public int getColor(int _whichColor) {
