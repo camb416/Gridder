@@ -29,6 +29,7 @@ public class ColorManager {
     Toggle gAutoScrollToggle;
     Slider gSpeedSlider;
 
+
     public ColorManager(PApplet _app, int _numColors, String _filePath) {
 
         margin = 5;
