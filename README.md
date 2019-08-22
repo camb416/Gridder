@@ -4,6 +4,9 @@
 
 ## Apps
 
+![Screenshot 08](doc/08.jpg)
+08
+
 ![Screenshot 07](doc/07.jpg)
 07
 
